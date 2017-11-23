@@ -24,16 +24,23 @@ public abstract class DatabaseService<D, M, R extends JpaRepository> {
 
   protected Class<D> dtoType;
 
-  public DatabaseService(R repository, ModelMapper mapper, Class dtoType) {
+  protected Class<M> daoType;
+
+  public DatabaseService(R repository, ModelMapper mapper, Class dtoType, Class daoType) {
     this.mapper = mapper;
     this.repository = repository;
     this.dtoType = dtoType;
+    this.daoType = daoType;
   }
 
   public List<D> getAll() {
     List<D> dtos = new ArrayList<>();
     repository.findAll().forEach(dao -> dtos.add(mapper.map(dao, dtoType)));
     return dtos;
+  }
+
+  public void save(D dto) {
+    repository.save(mapper.map(dto, daoType));
   }
 
 }

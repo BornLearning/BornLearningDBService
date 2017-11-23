@@ -1,0 +1,102 @@
+{
+	"info": {
+		"name": "BornLearning Web Service",
+		"_postman_id": "d7a7ab18-2c6d-2da2-8bd8-0283c6b6e562",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all centers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpoint}}/centers",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"centers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Centers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{endpoint}}/centers",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"centers"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET centers by Facilitator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{endpoint}}/centers/byFacilitator/111214",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"centers",
+						"byFacilitator",
+						"111214"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Center",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{endpoint}}/centers/{{putCenterIdHere}}",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"centers",
+						"{{putCenterIdHere}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
