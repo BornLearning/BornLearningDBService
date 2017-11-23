@@ -1,4 +1,4 @@
-package com.cmpe272.gr15.mysql;
+package com.cmpe272.gr15.mysql.controller;
 
 import com.cmpe272.gr15.mysql.service.DatabaseService;
 import org.springframework.http.HttpStatus;
