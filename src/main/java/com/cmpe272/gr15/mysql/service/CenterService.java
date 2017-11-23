@@ -31,4 +31,8 @@ public class CenterService extends DatabaseService<Center,
         }
         return null;
     }
+
+    public void deleteCenter(Integer centerId) {
+        repository.delete(centerId);
+    }
 }

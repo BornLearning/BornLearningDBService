@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -36,12 +37,11 @@ public class CenterController extends BornLearningController<Center, CenterServi
   }
 
   /**
-   * Get Center by Facilitator ID. Usually this would be entity's own ID i.e. centerId, but since we won't need that,
-   * we'll use facilitatorId to retrieve the Centers that belong to that ID.
+   * Get Center by Facilitator ID.
    * @param facilitatorId
    * @return
    */
-  @RequestMapping(path = "/{facilitatorId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(path = "/byFacilitator/{facilitatorId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<List<Center>> getByFacilitatorId(@PathVariable Integer facilitatorId) {
     List<Center> center = databaseService.getCenterByFacilitatorId(facilitatorId);
     if (center == null) {
@@ -56,6 +56,12 @@ public class CenterController extends BornLearningController<Center, CenterServi
       throw new InvalidDataException("Center name cannot be blank.");
     }
     databaseService.save(center);
+    return new ResponseEntity<>(HttpStatus.ACCEPTED);
+  }
+
+  @RequestMapping(path = "/{centerId}", method = DELETE)
+  public ResponseEntity<Void> deleteCenter(@PathVariable Integer centerId) {
+    databaseService.deleteCenter(centerId);
     return new ResponseEntity<>(HttpStatus.ACCEPTED);
   }
 }
