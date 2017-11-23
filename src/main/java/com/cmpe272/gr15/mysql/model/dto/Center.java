@@ -1,7 +1,9 @@
 package com.cmpe272.gr15.mysql.model.dto;
 
-import lombok.Data;
+import lombok.Data; // auto-generates the getters, setters of this class.
+import org.springframework.stereotype.Component;
 
+@Component
 @Data
 public class Center {
 
