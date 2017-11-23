@@ -6,6 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A class to handle Center queries. Add all specific methods for Centers here. All methods that can be used by other
  * services must be put in DatabaseService class.
@@ -16,11 +19,16 @@ public class CenterService extends DatabaseService<Center,
 
     @Autowired
     public CenterService(CenterRepository repository, ModelMapper mapper) {
-        super(repository, mapper, Center.class);
+        super(repository, mapper, Center.class, com.cmpe272.gr15.mysql.model.Center.class);
     }
 
-    public Center getCenterByFacilitatorId(Integer facilitatorId) {
-        com.cmpe272.gr15.mysql.model.Center entity = repository.getByFacilitatorId(facilitatorId);
-        return entity != null ? mapper.map(entity, Center.class) : null;
+    public List<Center> getCenterByFacilitatorId(Integer facilitatorId) {
+        List<com.cmpe272.gr15.mysql.model.Center> entities = repository.getByFacilitatorId(facilitatorId);
+        List<Center> centers = new ArrayList<>();
+        if (entities != null && !entities.isEmpty()) {
+            entities.forEach(dao -> centers.add(mapper.map(dao, dtoType)));
+            return centers;
+        }
+        return null;
     }
 }

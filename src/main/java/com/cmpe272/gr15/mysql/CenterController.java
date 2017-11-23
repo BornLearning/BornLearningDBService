@@ -23,16 +23,21 @@ public class CenterController extends BornLearningController<Center, CenterServi
     super(centerService);
   }
 
-
   @Override
   @RequestMapping(method = GET)
   public ResponseEntity<List<Center>> getAll() {
     return super.getAll();
   }
 
+  /**
+   * Get Center by Facilitator ID. Usually this would be entity's own ID i.e. centerId, but since we won't need that,
+   * we'll use facilitatorId to retrieve the Centers that belong to that ID.
+   * @param facilitatorId
+   * @return
+   */
   @RequestMapping(path = "/{facilitatorId}", method = GET)
-  public ResponseEntity<Center> getByFacilitatorId(@PathVariable Integer facilitatorId) {
-    Center center = databaseService.getCenterByFacilitatorId(facilitatorId);
+  public ResponseEntity<List<Center>> getByFacilitatorId(@PathVariable Integer facilitatorId) {
+    List<Center> center = databaseService.getCenterByFacilitatorId(facilitatorId);
     return center != null ? new ResponseEntity<>(center, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 }
