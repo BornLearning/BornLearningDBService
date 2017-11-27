@@ -3,6 +3,7 @@ package com.cmpe272.gr15.mysql.controller;
 import com.cmpe272.gr15.mysql.service.DatabaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @param <D>
  * @param <S>
  */
+
 public abstract class BornLearningController<D, S extends DatabaseService> {
 
     protected S databaseService;
