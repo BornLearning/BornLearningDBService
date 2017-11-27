@@ -7,8 +7,16 @@ import javax.persistence.*;
 @Entity(name = "Children")
 @Data
 public class Child {
+    public Integer getChildID() {
+        return childID;
+    }
+
+    public void setChildID(Integer childID) {
+        this.childID = childID;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer childID;
 
     public String getChildFName() {
@@ -83,5 +91,13 @@ public class Child {
 
     private String imageID;
 
-    private String active;
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
+    public String active;
 }
