@@ -1,12 +1,6 @@
 package com.cmpe272.gr15.mysql.model;
 
-import lombok.Data;
-
-import javax.persistence.*;
-
-@Entity(name = "Children")
-@Data
-public class Child {
+public class ChildAge {
     public Integer getChildID() {
         return childID;
     }
@@ -15,7 +9,6 @@ public class Child {
         this.childID = childID;
     }
 
-    @Id
     private Integer childID;
 
     public String getChildFName() {
@@ -107,4 +100,15 @@ public class Child {
     }
 
     private String active;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    private int age;
+
 }
