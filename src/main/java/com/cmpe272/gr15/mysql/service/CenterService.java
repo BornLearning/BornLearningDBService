@@ -32,6 +32,16 @@ public class CenterService extends DatabaseService<Center,
         return null;
     }
 
+    public List<Center> getCenterByCenterId(Integer centerId) {
+        List<com.cmpe272.gr15.mysql.model.Center> entities = repository.getByCenterId(centerId);
+        List<Center> centers = new ArrayList<>();
+        if (entities != null && !entities.isEmpty()) {
+            entities.forEach(dao -> centers.add(mapper.map(dao, dtoType)));
+            return centers;
+        }
+        return null;
+    }
+
     public void deleteCenter(Integer centerId) {
         repository.delete(centerId);
     }
