@@ -17,4 +17,5 @@ public interface CenterRepository extends JpaRepository<Center, Integer> {
      * @return List of Center objects when found.
      */
     List<Center> getByFacilitatorId(Integer facilitatorId);
+    List<Center> getByCenterId(Integer centerId);
 }

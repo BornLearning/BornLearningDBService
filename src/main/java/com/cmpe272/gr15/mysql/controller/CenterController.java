@@ -50,6 +50,15 @@ public class CenterController extends BornLearningController<Center, CenterServi
     return new ResponseEntity<>(center, HttpStatus.OK);
   }
 
+  @RequestMapping(path = "/byCenter/{centerId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<List<Center>> getByCenterId(@PathVariable Integer centerId) {
+    List<Center> center = databaseService.getCenterByCenterId(centerId);
+    if (center == null) {
+      throw new DataNotFoundException("No Center associated to: " + centerId.toString());
+    }
+    return new ResponseEntity<>(center, HttpStatus.OK);
+  }
+
   @RequestMapping(method = POST)
   public ResponseEntity<Void> addCenter(@RequestBody Center center) {
     if (StringUtils.isBlank(center.getCenterName())) {
