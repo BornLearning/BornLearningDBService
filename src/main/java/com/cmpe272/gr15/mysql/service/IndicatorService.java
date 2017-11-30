@@ -16,39 +16,45 @@ import java.util.List;
 public class IndicatorService extends DatabaseService<Indicator,
         com.cmpe272.gr15.mysql.model.Indicator, IndicatorRepository>{
 
-
     @Autowired
     public IndicatorService(IndicatorRepository repository, ModelMapper mapper) {
         super(repository, mapper, Indicator.class, com.cmpe272.gr15.mysql.model.Indicator.class);
     }
 
     public List<Indicator> getIndicatorBySubCategory(String subCategory, Integer ageGroup) {
-        List<com.cmpe272.gr15.mysql.model.Indicator> entities = repository.getBySubCategory(subCategory);
-        Integer childAge = ageGroup;
 
-        System.out.println("age is" + childAge);
         List<Indicator> indicators = new ArrayList<>();
         List<Indicator> indicatorsByAge = new ArrayList<>();
 
-        if (entities != null && !entities.isEmpty()) {
+        if(subCategory != null && !(subCategory.isEmpty())){
+            List<com.cmpe272.gr15.mysql.model.Indicator> entities = repository.getBySubCategory(subCategory);
+            if (entities != null && !entities.isEmpty()) {
 
-            entities.forEach(dao -> indicators.add(mapper.map(dao, dtoType)));
+                entities.forEach(dao -> indicators.add(mapper.map(dao, dtoType)));
 
-            for(Indicator i : indicators){
-                if(childAge.equals(0)){
-                    indicatorsByAge.add(i);
-                } else{
-                    String ageRange = i.getAgeGroup();
-                    String[] age = ageRange.split("-");
-                    if(childAge.equals(Integer.parseInt(age[0].trim())) || childAge.equals(Integer.parseInt(age[1].trim()))){
+                for(Indicator i : indicators){
+                    if(ageGroup == null){
                         indicatorsByAge.add(i);
+                    } else{
+                        String ageRange = i.getAgeGroup();
+                        String[] age = ageRange.split("-");
+                        if(ageGroup.equals(Integer.parseInt(age[0].trim())) || ageGroup.equals(Integer.parseInt(age[1].trim()))){
+                            indicatorsByAge.add(i);
+                        }
                     }
                 }
+                if(indicatorsByAge.isEmpty()){
+                    return null;
+                } else {
+                    return indicatorsByAge;
+                }
             }
-            if(indicatorsByAge.isEmpty()){
-                return null;
-            } else {
-                return indicatorsByAge;
+        } else{
+            String emptySubCategory = "";
+            List<com.cmpe272.gr15.mysql.model.Indicator> entities = repository.getBySubCategory(emptySubCategory);
+            if (entities != null && !entities.isEmpty()) {
+                entities.forEach(dao -> indicators.add(mapper.map(dao, dtoType)));
+                return indicators;
             }
         }
         return null;

@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("/indicators")
+//@RequestMapping("/indicators")
 public class IndicatorController extends BornLearningController<Indicator, IndicatorService>{
 
     @Autowired
@@ -35,8 +32,11 @@ public class IndicatorController extends BornLearningController<Indicator, Indic
      * @param subCategory, age
      * @return
      */
-    @RequestMapping(path = "/{subCategory}/{ageGroup}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Indicator>> getBySubCategory(@PathVariable String subCategory, @PathVariable Integer ageGroup) {
+    @RequestMapping(path = "/indicators", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Indicator>> getBySubCategory(@RequestParam(name = "subCategory", required = false) String subCategory,
+                                                            @RequestParam(name = "ageGroup", required = false) Integer ageGroup) {
+        System.out.println("subString is11"+ subCategory);
+        System.out.println("agegroup is11"+ ageGroup);
         List<Indicator> indicator = databaseService.getIndicatorBySubCategory(subCategory, ageGroup);
         if (indicator == null) {
             throw new DataNotFoundException("No Indicator associated to: " + subCategory);
