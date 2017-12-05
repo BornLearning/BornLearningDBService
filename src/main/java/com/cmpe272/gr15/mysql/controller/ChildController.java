@@ -43,6 +43,10 @@ public class ChildController extends BornLearningController<Child, ChildService>
     public ResponseEntity<List<ChildAge>> getByCenterId(@PathVariable Integer centerId) throws ParseException {
         List<Child> child = databaseService.getChildByCenterID(centerId);
         List<ChildAge> childAge=new ArrayList<>();
+        if (child == null) {
+            //throw new DataNotFoundException("No Center associated to: " + centerId.toString());
+            return new ResponseEntity<>(childAge, HttpStatus.OK);
+        }
         Date d1 = new Date();
         System.out.println(d1);
         for(int i=0;i<child.size();i++){
@@ -65,19 +69,22 @@ public class ChildController extends BornLearningController<Child, ChildService>
             childTemp.setAge(age);
             childAge.add(childTemp);
         }
-        if (child == null) {
-            throw new DataNotFoundException("No Center associated to: " + centerId.toString());
-        }
         return new ResponseEntity<>(childAge, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/byChildId/{childId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Child> getChildInfoByChildId(@PathVariable Integer childId) {
-        Child child = databaseService.getChildInfoByChildID(childId);
-        if (child == null) {
-            throw new DataNotFoundException("No Child associated to: " + childId.toString());
+        try {
+            Child child = databaseService.getChildInfoByChildID(childId);
+            if (child == null) {
+                throw new DataNotFoundException("No Child associated to: " + childId.toString());
+            }
+
+            return new ResponseEntity<>(child, HttpStatus.OK);
         }
-        return new ResponseEntity<>(child, HttpStatus.OK);
+        catch (Exception e){
+            return new ResponseEntity<>(new Child(), HttpStatus.OK);
+        }
     }
 
     @RequestMapping(path = "/addChildInfo",method = POST)
