@@ -41,7 +41,7 @@ public class CenterController extends BornLearningController<Center, CenterServi
    * @param facilitatorId
    * @return
    */
-  @RequestMapping(path = "/byFacilitator/{facilitatorId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(path = "/byFacilitatorId/{facilitatorId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<List<Center>> getByFacilitatorId(@PathVariable Integer facilitatorId) {
     List<Center> center = databaseService.getCenterByFacilitatorId(facilitatorId);
     if (center == null) {
@@ -50,7 +50,7 @@ public class CenterController extends BornLearningController<Center, CenterServi
     return new ResponseEntity<>(center, HttpStatus.OK);
   }
 
-  @RequestMapping(path = "/byCenter/{centerId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(path = "/byCenterId/{centerId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<List<Center>> getByCenterId(@PathVariable Integer centerId) {
     List<Center> center = databaseService.getCenterByCenterId(centerId);
     if (center == null) {
