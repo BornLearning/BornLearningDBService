@@ -1,5 +1,6 @@
 package com.cmpe272.gr15.mysql.controller;
 
+import com.cmpe272.gr15.mysql.model.dto.BaseDTO;
 import com.cmpe272.gr15.mysql.service.DatabaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
  * @param <S>
  */
 
-public abstract class BornLearningController<D, S extends DatabaseService> {
+public abstract class BornLearningController<D extends BaseDTO, S extends DatabaseService> {
 
     protected S databaseService;
 

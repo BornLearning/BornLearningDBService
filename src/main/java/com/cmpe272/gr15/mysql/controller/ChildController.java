@@ -1,9 +1,9 @@
 package com.cmpe272.gr15.mysql.controller;
 
 import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
+import com.cmpe272.gr15.mysql.exceptions.DataProcessingException;
 import com.cmpe272.gr15.mysql.exceptions.InvalidDataException;
-import com.cmpe272.gr15.mysql.model.Child;
-import com.cmpe272.gr15.mysql.model.ChildAge;
+import com.cmpe272.gr15.mysql.model.dto.Child;
 import com.cmpe272.gr15.mysql.service.ChildService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,54 +40,30 @@ public class ChildController extends BornLearningController<Child, ChildService>
     }
 
     @RequestMapping(path = "/byCenterId/{centerId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<ChildAge>> getByCenterId(@PathVariable Integer centerId) throws ParseException {
-        List<Child> child = databaseService.getChildByCenterID(centerId);
-        List<ChildAge> childAge=new ArrayList<>();
-        if (child == null) {
+    public ResponseEntity<List<Child>> getByCenterId(@PathVariable Integer centerId) throws ParseException {
+        List<com.cmpe272.gr15.mysql.model.dto.Child> children = databaseService.getChildByCenterID(centerId);
+        if (children == null) {
             //throw new DataNotFoundException("No Center associated to: " + centerId.toString());
-            return new ResponseEntity<>(childAge, HttpStatus.OK);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
-        Date d1 = new Date();
-        System.out.println(d1);
-        for(int i=0;i<child.size();i++){
-            ChildAge childTemp=new ChildAge();
-            Date d2 = new SimpleDateFormat("dd/MM/yyyy").parse((String)child.get(i).getChildDOB());
-            long diff = Math.abs(d1.getTime() - d2.getTime());
-            long diffDays = diff / (24 * 60 * 60 * 1000);
-            int age = Integer.parseInt(""+(diffDays/365));
-            System.out.println(d2);
-            childTemp.setChildID(child.get(i).getChildID());
-            childTemp.setChildFName(child.get(i).getChildFName());
-            childTemp.setChildLName(child.get(i).getChildLName());
-            childTemp.setChildDOB(child.get(i).getChildDOB());
-            childTemp.setGender(child.get(i).getGender());
-            childTemp.setGuardianName(child.get(i).getGuardianName());
-            childTemp.setGuardianPhone(child.get(i).getGuardianPhone());
-            childTemp.setCenterID(child.get(i).getCenterID());
-            childTemp.setImageID(child.get(i).getImageID());
-            childTemp.setActive(child.get(i).getActive());
-            childTemp.setAge(age);
-            childAge.add(childTemp);
-        }
-        return new ResponseEntity<>(childAge, HttpStatus.OK);
+        return new ResponseEntity<>(children, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/byChildId/{childId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Child> getChildInfoByChildId(@PathVariable Integer childId) {
+        Child child = null;
         try {
-            Child child = databaseService.getChildInfoByChildID(childId);
-            if (child == null) {
-                throw new DataNotFoundException("No Child associated to: " + childId.toString());
-            }
-
-            return new ResponseEntity<>(child, HttpStatus.OK);
+            child = databaseService.getChildInfoByChildID(childId);
+        } catch (ParseException errParse) {
+            throw new DataProcessingException("An error occurred when parsing child object." + errParse.getMessage());
         }
-        catch (Exception e){
-            return new ResponseEntity<>(new Child(), HttpStatus.OK);
+        if (child == null) {
+            throw new DataNotFoundException("No Child associated to: " + childId.toString());
         }
+        return new ResponseEntity<>(child, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/addChildInfo",method = POST)
+    @RequestMapping(path = "/addChild",method = POST)
     public ResponseEntity<Void> addChild(@RequestBody Child child) {
         if (StringUtils.isBlank(child.getChildID().toString())) {
             throw new InvalidDataException("child id cannot be blank.");

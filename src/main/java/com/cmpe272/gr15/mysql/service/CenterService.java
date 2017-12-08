@@ -45,4 +45,9 @@ public class CenterService extends DatabaseService<Center,
     public void deleteCenter(Integer centerId) {
         repository.delete(centerId);
     }
+
+    @Override
+    public com.cmpe272.gr15.mysql.model.Center getById(Center dto) {
+        return repository.findOne(dto.getCenterId());
+    }
 }
