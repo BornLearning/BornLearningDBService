@@ -1,5 +1,6 @@
 package com.cmpe272.gr15.mysql.model;
 
+import com.cmpe272.gr15.mysql.model.dto.BaseDTO;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 
 @Entity(name = "Indicators")
 @Data
-public class Indicator {
+public class Indicator extends BaseDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
