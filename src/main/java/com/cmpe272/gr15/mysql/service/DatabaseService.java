@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,11 @@ public abstract class DatabaseService<D, M, R extends JpaRepository> {
     repository.findAll().forEach(dao -> dtos.add(mapper.map(dao, dtoType)));
     return dtos;
   }
+
+//  @Transactional
+//  public void save(List<D> dtos) {
+//    dtos.forEach(dto -> save(dto));
+//  }
 
   public void save(D dto) {
     repository.save(mapper.map(dto, daoType));
