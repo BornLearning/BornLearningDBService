@@ -15,7 +15,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/facilitator")
+@RequestMapping("/facilitators")
 public class FacilitatorController extends BornLearningController<Facilitator, FacilitatorService> {
 
     @Autowired

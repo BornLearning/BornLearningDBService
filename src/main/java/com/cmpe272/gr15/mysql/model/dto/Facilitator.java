@@ -10,14 +10,6 @@ import javax.persistence.Id;
 @Data
 public class Facilitator extends BaseDTO {
 
-    public Integer getFacilitatorID() {
-        return facilitatorID;
-    }
-
-    public void setFacilitatorID(Integer facilitatorID) {
-        this.facilitatorID = facilitatorID;
-    }
-
     private Integer facilitatorID;
 
     private String name;
