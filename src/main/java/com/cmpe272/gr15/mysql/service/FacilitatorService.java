@@ -22,13 +22,13 @@ public class FacilitatorService extends DatabaseService<Facilitator,
         super(repository, mapper, Facilitator.class, com.cmpe272.gr15.mysql.model.Facilitator.class);
     }
 
-    public List<Facilitator> getFacilitatorByFacilitatorId(Integer facilitatorId) {
-        List<com.cmpe272.gr15.mysql.model.Facilitator> entities = repository.getByFacilitatorID(facilitatorId);
-        List<Facilitator> facilitator = new ArrayList<>();
-        if (entities != null && !entities.isEmpty()) {
-            return facilitator;
+    public Facilitator getById(Integer facilitatorId) {
+        com.cmpe272.gr15.mysql.model.Facilitator entity = repository.getByFacilitatorID(facilitatorId);
+        if(entity!=null){
+            return mapper.map(entity, dtoType);
+        }else{
+            return null;
         }
-        return null;
     }
 
     @Override

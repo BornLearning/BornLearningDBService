@@ -1,5 +1,6 @@
 package com.cmpe272.gr15.mysql.controller;
 
+import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
 import com.cmpe272.gr15.mysql.model.dto.Facilitator;
 import com.cmpe272.gr15.mysql.service.FacilitatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/facilitator")
+@RequestMapping("/facilitators")
 public class FacilitatorController extends BornLearningController<Facilitator, FacilitatorService> {
 
     @Autowired
@@ -29,11 +30,11 @@ public class FacilitatorController extends BornLearningController<Facilitator, F
      * @return
      */
     @RequestMapping(path = "/{facilitatorID}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Boolean> getByFacilitatorId(@PathVariable Integer facilitatorID) {
-        List<Facilitator> facilitator = databaseService.getFacilitatorByFacilitatorId(facilitatorID);
+    public ResponseEntity<Facilitator> getByFacilitatorId(@PathVariable Integer facilitatorID) {
+        Facilitator facilitator = databaseService.getById(facilitatorID);
         if (facilitator == null) {
-            return new ResponseEntity<>(false, HttpStatus.OK);
+            throw new DataNotFoundException("Facilitator with ID: " + facilitatorID + " not found.");
         }
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(facilitator, HttpStatus.OK);
     }
 }

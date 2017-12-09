@@ -16,5 +16,5 @@ public interface FacilitatorRepository extends JpaRepository<Facilitator, Intege
      * @param facilitatorID - Facilitator ID to be used to search for the Center.
      * @return List of Center objects when found.
      */
-    List<Facilitator> getByFacilitatorID(Integer facilitatorID);
+    Facilitator getByFacilitatorID(Integer facilitatorID);
 }
