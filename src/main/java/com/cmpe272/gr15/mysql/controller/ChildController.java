@@ -1,32 +1,32 @@
-package com.cmpe272.gr15.mysql.controller;
+    package com.cmpe272.gr15.mysql.controller;
 
-import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
-import com.cmpe272.gr15.mysql.exceptions.InvalidDataException;
-import com.cmpe272.gr15.mysql.model.Child;
-import com.cmpe272.gr15.mysql.model.ChildAge;
-import com.cmpe272.gr15.mysql.service.ChildService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+    import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
+    import com.cmpe272.gr15.mysql.exceptions.InvalidDataException;
+    import com.cmpe272.gr15.mysql.model.Child;
+    import com.cmpe272.gr15.mysql.model.ChildAge;
+    import com.cmpe272.gr15.mysql.service.ChildService;
+    import org.apache.commons.lang3.StringUtils;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.MediaType;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.PathVariable;
+    import org.springframework.web.bind.annotation.RequestBody;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.util.ArrayList;
+    import java.util.Date;
+    import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+    import static org.springframework.web.bind.annotation.RequestMethod.GET;
+    import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@RestController
-@RequestMapping("/children")
-public class ChildController extends BornLearningController<Child, ChildService>{
+    @RestController
+    @RequestMapping("/children")
+    public class ChildController extends BornLearningController<Child, ChildService>{
 
     @Autowired
     public ChildController(ChildService childService) {
@@ -74,17 +74,12 @@ public class ChildController extends BornLearningController<Child, ChildService>
 
     @RequestMapping(path = "/byChildId/{childId}", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Child> getChildInfoByChildId(@PathVariable Integer childId) {
-        try {
-            Child child = databaseService.getChildInfoByChildID(childId);
-            if (child == null) {
-                throw new DataNotFoundException("No Child associated to: " + childId.toString());
-            }
-
-            return new ResponseEntity<>(child, HttpStatus.OK);
+        Child child = databaseService.getChildInfoByChildID(childId);
+        if (child == null) {
+        //throw new DataNotFoundException("No Child associated to: " + childId.toString());
+        return null;
         }
-        catch (Exception e){
-            return new ResponseEntity<>(new Child(), HttpStatus.OK);
-        }
+        return new ResponseEntity<>(child, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/addChildInfo",method = POST)
@@ -120,4 +115,4 @@ public class ChildController extends BornLearningController<Child, ChildService>
         }
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-}
+    }
