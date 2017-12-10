@@ -5,21 +5,19 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "SchoolReadiness")
+@Entity(name= "Community")
 @Data
-public class SchoolReadiness {
-
+public class Community {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer schoolResRow;
+    private Integer communityResRow;
 
     private Integer indicatorID;
 
-    private Integer childID;
+    private Integer centerId;
 
     private Integer response;
 
     @Temporal(TemporalType.DATE)
     private Date assessmentDate;
-
 }
