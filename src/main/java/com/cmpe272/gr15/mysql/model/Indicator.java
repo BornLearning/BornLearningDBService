@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 @Entity(name = "Indicators")
 @Data
-public class Indicator extends BaseDTO {
+public class Indicator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +26,4 @@ public class Indicator extends BaseDTO {
 
     private String ageGroup;
 
-    public String getAgeGroup() {
-        return ageGroup;
-    }
-
-    public void setAgeGroup(String ageGroup) {
-        this.ageGroup = ageGroup;
-    }
 }

@@ -6,4 +6,5 @@ import java.io.Serializable;
  * All DTO should implement this interface.
  */
 public abstract class BaseDTO implements Serializable {
+
 }

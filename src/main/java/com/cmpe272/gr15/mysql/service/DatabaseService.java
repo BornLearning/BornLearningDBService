@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public abstract class DatabaseService<D extends BaseDTO, M, R extends JpaReposit
     List<D> dtos = new ArrayList<>();
     repository.findAll().forEach(dao -> dtos.add(mapper.map(dao, dtoType)));
     return dtos;
+  }
+
+  public void save(List<D> dtos) {
+    dtos.forEach(dto -> save(dto));
   }
 
   public void save(D dto) {
