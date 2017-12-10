@@ -5,6 +5,8 @@ import com.cmpe272.gr15.mysql.model.dto.Center;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +46,10 @@ public class CenterService extends DatabaseService<Center,
 
     public void deleteCenter(Integer centerId) {
         repository.delete(centerId);
+    }
+
+    @Override
+    public com.cmpe272.gr15.mysql.model.Center getById(Center dto) {
+        return repository.findOne(dto.getCenterId());
     }
 }

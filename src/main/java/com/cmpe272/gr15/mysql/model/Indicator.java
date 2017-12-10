@@ -1,5 +1,6 @@
 package com.cmpe272.gr15.mysql.model;
 
+import com.cmpe272.gr15.mysql.model.dto.BaseDTO;
 import lombok.Data;
 
 import javax.persistence.Column;

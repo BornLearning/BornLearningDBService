@@ -1,16 +1,12 @@
 package com.cmpe272.gr15.mysql.controller;
 
-
-import com.cmpe272.gr15.mysql.model.InfrastructureDev;
-
 import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
 import com.cmpe272.gr15.mysql.exceptions.InvalidDataException;
 import com.cmpe272.gr15.mysql.exceptions.InsertingDataException;
-import com.cmpe272.gr15.mysql.model.InfrastructureDev;
+import com.cmpe272.gr15.mysql.model.dto.InfrastructureDev;
 import com.cmpe272.gr15.mysql.service.InfrastructureDevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,13 +43,13 @@ public class InfrastructureDevController extends BornLearningController<Infrastr
                     throw new InvalidDataException("Assessment Date cannot be blank.");
                 }
             }
-//            try {
-//                databaseService.save(infrastructureDev);
-//            }
-//            catch(Exception e) {
-//                throw new InsertingDataException("Error occured while saving the response");
-//            }
-
+            try {
+                databaseService.save(infrastructureDev);
+            }
+            catch(Exception e) {
+                System.out.println("exception occured"+ e);
+                throw new InsertingDataException("Error occurred while saving the response");
+            }
         }
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -1,13 +1,10 @@
 package com.cmpe272.gr15.mysql.controller;
 
 import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
-import com.cmpe272.gr15.mysql.exceptions.InvalidDataException;
-//import com.cmpe272.gr15.mysql.model.dto.Indicator;
-import com.cmpe272.gr15.mysql.model.Indicator;
+import com.cmpe272.gr15.mysql.model.dto.Indicator;
+//import com.cmpe272.gr15.mysql.model.Indicator;
 import com.cmpe272.gr15.mysql.model.SchoolReadiness;
-import com.cmpe272.gr15.mysql.model.InfrastructureDev;
 import com.cmpe272.gr15.mysql.service.IndicatorService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

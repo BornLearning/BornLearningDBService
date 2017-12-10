@@ -11,8 +11,11 @@ public class Child {
         return childID;
     }
 
+    public void setChildID(Integer childID) {
+        this.childID = childID;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer childID;
 
     public String getChildFName() {

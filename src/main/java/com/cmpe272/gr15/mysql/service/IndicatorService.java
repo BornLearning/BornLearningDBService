@@ -1,7 +1,7 @@
 package com.cmpe272.gr15.mysql.service;
 
+import com.cmpe272.gr15.mysql.model.dto.Indicator;
 import com.cmpe272.gr15.mysql.repository.IndicatorRepository;
-import com.cmpe272.gr15.mysql.model.Indicator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,6 +57,16 @@ public class IndicatorService extends DatabaseService<Indicator,
                 return indicators;
             }
         }
+        return null;
+    }
+
+    /**
+     * TODO: Manali to implement this one.
+     * @param dto
+     * @return
+     */
+    @Override
+    public com.cmpe272.gr15.mysql.model.Indicator getById(Indicator dto) {
         return null;
     }
 }
