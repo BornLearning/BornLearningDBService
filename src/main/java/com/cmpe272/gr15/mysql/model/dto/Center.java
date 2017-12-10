@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-public class Center {
+public class Center extends BaseDTO {
 
     private Integer centerId;
 

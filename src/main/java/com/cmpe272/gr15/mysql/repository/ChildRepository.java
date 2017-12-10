@@ -14,5 +14,5 @@ public interface ChildRepository extends JpaRepository<Child,Integer> {
     //@Query(value = "FROM Child c WHERE c.active = 'Y'")
     List<Child> getByCenterID(Integer centerID);
 
-    Child getChildInfoByChildID(Integer childID);
+    Child getByChildID(Integer childID);
 }
