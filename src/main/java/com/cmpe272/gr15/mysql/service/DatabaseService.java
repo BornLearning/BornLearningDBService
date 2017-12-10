@@ -54,6 +54,15 @@ public abstract class DatabaseService<D extends BaseDTO, M, R extends JpaReposit
     repository.save(mapper.map(dto, daoType));
   }
 
+  public void update(D dto) {
+    M existingEntity = getById(dto);
+    if (existingEntity == null) {
+      throw new InvalidDataException("Entity does not exists!");
+    }
+    repository.save(mapper.map(dto, daoType));
+
+  }
+
   public abstract M getById(D dto);
 
 }
