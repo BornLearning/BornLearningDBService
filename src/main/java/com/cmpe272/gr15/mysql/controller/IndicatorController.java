@@ -2,6 +2,8 @@ package com.cmpe272.gr15.mysql.controller;
 
 import com.cmpe272.gr15.mysql.exceptions.DataNotFoundException;
 import com.cmpe272.gr15.mysql.model.dto.Indicator;
+//import com.cmpe272.gr15.mysql.model.Indicator;
+import com.cmpe272.gr15.mysql.model.SchoolReadiness;
 import com.cmpe272.gr15.mysql.service.IndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-//@RequestMapping("/indicators")
+@RequestMapping("/indicators")
 public class IndicatorController extends BornLearningController<Indicator, IndicatorService>{
 
     @Autowired
@@ -29,7 +31,7 @@ public class IndicatorController extends BornLearningController<Indicator, Indic
      * @param subCategory, age
      * @return
      */
-    @RequestMapping(path = "/indicators", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(path = "/questions", method = GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Indicator>> getBySubCategory(@RequestParam(name = "subCategory", required = false) String subCategory,
                                                             @RequestParam(name = "ageGroup", required = false) Integer ageGroup) {
         System.out.println("subString is11"+ subCategory);
@@ -40,4 +42,15 @@ public class IndicatorController extends BornLearningController<Indicator, Indic
         }
         return new ResponseEntity<>(indicator, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/schoolReadiness", method = POST)
+    public ResponseEntity<Void> addSchoolReadinessResponse(@RequestBody SchoolReadiness school) {
+//        List<Indicator> indicator = databaseService.getIndicatorBySubCategory(subCategory, ageGroup);
+//        if (indicator == null) {
+//            throw new DataNotFoundException("No Indicator associated to: " + subCategory);
+//        }
+        System.out.println("call done" + school);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 }
