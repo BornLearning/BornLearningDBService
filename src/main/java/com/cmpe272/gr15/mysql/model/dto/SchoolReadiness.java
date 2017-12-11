@@ -6,9 +6,7 @@ import java.util.Date;
 
 @Component
 @Data
-public class SchoolReadiness extends BaseDTO{
-
-    private Integer schoolResRow;
+public class SchoolReadiness extends BaseDTO {
 
     private Integer indicatorID;
 

@@ -38,8 +38,14 @@ public class IndicatorService extends DatabaseService<Indicator,
                     } else{
                         String ageRange = i.getAgeGroup();
                         String[] age = ageRange.split("-");
-                        if(ageGroup.equals(Integer.parseInt(age[0].trim())) || ageGroup.equals(Integer.parseInt(age[1].trim()))){
-                            indicatorsByAge.add(i);
+                        if (age.length > 1) {
+                            if(ageGroup.equals(Integer.parseInt(age[0].trim())) || ageGroup.equals(Integer.parseInt(age[1].trim()))){
+                                indicatorsByAge.add(i);
+                            }
+                        } else if (age.length == 1) {
+                            if(ageGroup.equals(Integer.parseInt(age[0].trim()))){
+                                indicatorsByAge.add(i);
+                            }
                         }
                     }
                 }
